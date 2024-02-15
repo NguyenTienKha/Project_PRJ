@@ -28,11 +28,11 @@ public class BrandFacade {
         ResultSet rs = stm.executeQuery("select * from brand");
         list = new ArrayList<>();
         while (rs.next()) {
-            //Doc mau tin hien hanh de vao doi tuong toy
+            
             Brand brand = new Brand();
             brand.setId(rs.getString("id"));
             brand.setName(rs.getString("name"));
-            //Them toy vao list
+            
             list.add(brand);
         }
         con.close();

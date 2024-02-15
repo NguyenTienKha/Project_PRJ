@@ -66,7 +66,7 @@ public class AccountController extends HttpServlet {
         String layout = (String) request.getAttribute("layout");
 
         try {
-            String email = request.getParameter("email");
+            String email = request.getParameter("uEmail");
             String password = request.getParameter("password");
             boolean remember = Boolean.parseBoolean(request.getParameter("remember"));
             //Kiem tra account 

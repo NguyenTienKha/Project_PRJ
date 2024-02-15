@@ -9,8 +9,8 @@
 <h3>Confirmation</h3>
 <hr/>
 <form action="<c:url value="/product/delete_handler.do" />">
-    Are you sure to delete this product ( id=${id} )?<br/>
-    <input type="hidden" name="id" value="${id}"/>
+    Are you sure to delete this product ( id=${pID} )?<br/>
+    <input type="hidden" name="pID" value="${pID}"/>
     <button class="btn btn-success fw-bold" type="submit" value="Yes" name="op"><i class=" bi bi-trash3"></i> Yes</button>
     <button class="btn btn-danger fw-bold" type="submit" value="No" name="op"><i class="bi bi-x-circle"></i> No</button>
 

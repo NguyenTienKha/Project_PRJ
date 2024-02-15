@@ -10,51 +10,62 @@ package db;
  * @author Nguyen Tien Kha
  */
 public class Product {
-    private int id;
-    private String name;
-    private String brand;
-    private Double price;
+
+    private int pID;
+    private String pName;
+    private String pImage;
+    private Double pPrice;
+    private int bID;
 
     public Product() {
     }
 
-    public Product(int id, String name, String brand, Double price) {
-        this.id = id;
-        this.name = name;
-        this.brand = brand;
-        this.price = price;
+    public Product(int pID, String pName, String pImage, Double pPrice, int bID) {
+        this.pID = pID;
+        this.pName = pName;
+        this.pImage = pImage;
+        this.pPrice = pPrice;
+        this.bID = bID;
     }
 
-    public int getId() {
-        return id;
+    public int getpID() {
+        return pID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setpID(int pID) {
+        this.pID = pID;
     }
 
-    public String getName() {
-        return name;
+    public String getpName() {
+        return pName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setpName(String pName) {
+        this.pName = pName;
     }
 
-    public String getBrand() {
-        return brand;
+    public String getpImage() {
+        return pImage;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setpImage(String pImage) {
+        this.pImage = pImage;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getpPrice() {
+        return pPrice;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setpPrice(Double pPrice) {
+        this.pPrice = pPrice;
     }
-    
+
+    public int getbID() {
+        return bID;
+    }
+
+    public void setbID(int bID) {
+        this.bID = bID;
+    }
+
 }

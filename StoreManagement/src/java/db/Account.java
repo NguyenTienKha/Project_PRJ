@@ -11,53 +11,45 @@ package db;
  */
 public class Account {
 
-    private int id;
-    private String email;
-    private String name;
-    private String roleId;
+    private int uID;
+    private String uEmail;
+    private String uName;
     private String password;
+    private String roleID;
 
     public Account() {
     }
 
-    public Account(int id, String email, String name, String roleId, String password) {
-        this.id = id;
-        this.email = email;
-        this.name = name;
-        this.roleId = roleId;
+    public Account(int uID, String uEmail, String uName, String password, String roleID) {
+        this.uID = uID;
+        this.uEmail = uEmail;
+        this.uName = uName;
         this.password = password;
+        this.roleID = roleID;
     }
 
-    public int getId() {
-        return id;
+    public int getuID() {
+        return uID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setuID(int uID) {
+        this.uID = uID;
     }
 
-    public String getEmail() {
-        return email;
+    public String getuEmail() {
+        return uEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setuEmail(String uEmail) {
+        this.uEmail = uEmail;
     }
 
-    public String getName() {
-        return name;
+    public String getuName() {
+        return uName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
+    public void setuName(String uName) {
+        this.uName = uName;
     }
 
     public String getPassword() {
@@ -68,4 +60,13 @@ public class Account {
         this.password = password;
     }
 
+    public String getRoleID() {
+        return roleID;
+    }
+
+    public void setRoleID(String roleID) {
+        this.roleID = roleID;
+    }
+
+    
 }

@@ -10,9 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,10 +27,11 @@ public class ProductFacade {
         list = new ArrayList<>();
         while (rs.next()) {
             Product product = new Product();
-            product.setId(rs.getInt("id"));
-            product.setName(rs.getString("name"));
-            product.setBrand("brand");
-            product.setPrice(rs.getDouble("point"));
+            product.setpID(rs.getInt("pID"));
+            product.setpName(rs.getString("pName"));
+            product.setpImage(rs.getString("pImage"));
+            product.setpPrice(rs.getDouble("pPrice"));
+            product.setbID(rs.getInt("bID"));
             list.add(product);
         };
         con.close();
@@ -41,38 +40,39 @@ public class ProductFacade {
 
     public Product select(int id) throws SQLException {
         Connection con = DBContext.getConnection();
-        PreparedStatement stm = con.prepareStatement("select * from Product where id = ?");
+        PreparedStatement stm = con.prepareStatement("select * from Product where pID = ?");
         stm.setInt(1, id);
         ResultSet rs = stm.executeQuery();
         Product product = null;
         if (rs.next()) {
             product = new Product();
-            product.setId(rs.getInt("id"));
-            product.setName(rs.getString("name"));
-            product.setBrand(rs.getString("brand"));
-            product.setPrice(rs.getDouble("price"));
-
+            product.setpID(rs.getInt("pID"));
+            product.setpName(rs.getString("pName"));
+            product.setpImage(rs.getString("pImage"));
+            product.setpPrice(rs.getDouble("pPrice"));
+            product.setbID(rs.getInt("bID"));
         };
         con.close();
         return product;
     }
 
-    public void add(String name, String brand, double price) throws SQLException {
+    public void add(String pName, String pImage, double pPrice, int bID) throws SQLException {
         Connection con = DBContext.getConnection();
-        PreparedStatement stm = con.prepareStatement("insert into Product values(?,?,?)");
+        PreparedStatement stm = con.prepareStatement("insert into Product values(?,?,?,?)");
 
-        stm.setString(1, name);
-        stm.setString(2, brand);
-        stm.setDouble(3, price);
+        stm.setString(1, pName);
+        stm.setString(2, pImage);
+        stm.setDouble(3, pPrice);
+        stm.setInt(4, bID);
         int count = stm.executeUpdate();
 
         con.close();
     }
 
-    public void delete(int id) throws SQLException {
+    public void delete(int pID) throws SQLException {
         Connection con = DBContext.getConnection();
-        PreparedStatement stm = con.prepareStatement("delete from Product where id = ?");
-        stm.setInt(1, id);
+        PreparedStatement stm = con.prepareStatement("delete from Product where pID = ?");
+        stm.setInt(1, pID);
         int count = stm.executeUpdate();
         con.close();
     }
@@ -81,12 +81,13 @@ public class ProductFacade {
 
         Connection con = DBContext.getConnection();
 
-        PreparedStatement stm = con.prepareStatement("update Product set name=?, brand=?, price=? where id=?");
+        PreparedStatement stm = con.prepareStatement("update Product set pName=?, pImage=?, pPrice=?, bID=? where pID=?");
 
-        stm.setString(1, product.getName());
-        stm.setString(2, product.getBrand());
-        stm.setDouble(3, product.getPrice());
-        stm.setInt(4, product.getId());
+        stm.setString(1, product.getpName());
+        stm.setString(2, product.getpImage());
+        stm.setDouble(3, product.getpPrice());
+        stm.setDouble(4, product.getbID());
+        stm.setInt(4, product.getpID());
 
         int count = stm.executeUpdate();
 

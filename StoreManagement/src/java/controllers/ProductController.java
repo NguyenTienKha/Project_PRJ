@@ -8,7 +8,6 @@ package controllers;
 import db.Product;
 import db.ProductFacade;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -97,16 +96,17 @@ public class ProductController extends HttpServlet {
         String layout = (String) request.getAttribute("layout");
         ProductFacade pf = new ProductFacade();
         try {
-            String name = request.getParameter("name");
-            String brand = request.getParameter("brand");
-            double price = Double.parseDouble(request.getParameter("price"));
+            String pName = request.getParameter("pName");
+            String pImage = request.getParameter("pImage");
+            double pPrice = Double.parseDouble(request.getParameter("pPrice"));
+            int bID = Integer.parseInt(request.getParameter("bID"));
 
-            pf.add(name, brand, price);
+            pf.add(pName, pImage, pPrice, bID);
 
             request.getRequestDispatcher("/product/list.do").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("errorMsg", "Can't save product into the db.");
+            request.setAttribute("errorMsg", "Can't save Product into the db.");
             request.setAttribute("action", "add");
         }
         request.getRequestDispatcher(layout).forward(request, response);
@@ -115,8 +115,8 @@ public class ProductController extends HttpServlet {
     protected void delete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String layout = (String) request.getAttribute("layout");
-        int id = Integer.parseInt(request.getParameter("id"));
-        request.setAttribute("id", id);
+        int pID = Integer.parseInt(request.getParameter("pID"));
+        request.setAttribute("pID", pID);
         request.getRequestDispatcher(layout).forward(request, response);
     }
 
@@ -125,11 +125,11 @@ public class ProductController extends HttpServlet {
         String layout = (String) request.getAttribute("layout");
         ProductFacade pf = new ProductFacade();
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
+            int pID = Integer.parseInt(request.getParameter("pID"));
             String op = request.getParameter("op");
             switch (op) {
                 case "Yes":
-                    pf.delete(id);
+                    pf.delete(pID);
                     break;
                 case "No":
                     break;
@@ -137,7 +137,7 @@ public class ProductController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/product/list.do");
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("errorMsg", "Can't delete this product.");
+            request.setAttribute("errorMsg", "Can't delete this Product.");
             request.setAttribute("action", "list");
             request.getRequestDispatcher(layout).forward(request, response);
         }
@@ -148,8 +148,8 @@ public class ProductController extends HttpServlet {
         String layout = (String) request.getAttribute("layout");
         ProductFacade pf = new ProductFacade();
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
-            Product product = pf.select(id);
+            int pID = Integer.parseInt(request.getParameter("pID"));
+            Product product = pf.select(pID);
             request.setAttribute("product", product);
 
         } catch (Exception e) {
@@ -164,18 +164,19 @@ public class ProductController extends HttpServlet {
         String layout = (String) request.getAttribute("layout");
         ProductFacade pf = new ProductFacade();
         try {
-
-            int id = Integer.parseInt(request.getParameter("id"));
-            String name = request.getParameter("name");
-            String brand = request.getParameter("brand");
-            double price = Double.parseDouble(request.getParameter("price"));
+            int pID = Integer.parseInt(request.getParameter("pID"));
+            String pName = request.getParameter("pName");
+            String pImage = request.getParameter("pImage");
+            double pPrice = Double.parseDouble(request.getParameter("pPrice"));
+            int bID = Integer.parseInt(request.getParameter("bID"));
 
             Product product = new Product();
 
-            product.setId(id);
-            product.setName(name);
-            product.setBrand(brand);
-            product.setPrice(price);
+            product.setpID(pID);
+            product.setpName(pName);
+            product.setpImage(pImage);
+            product.setpPrice(pPrice);
+            product.setbID(bID);
 
             request.setAttribute("product", product);
 
