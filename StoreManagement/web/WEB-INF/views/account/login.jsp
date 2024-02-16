@@ -7,18 +7,29 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<div class="row">
-    <div class="col">
-        <h3>LOGIN</h3>
+<style>
+    .wrapper-form{
+        background-color: #ffe99c;
+        opacity: 1;
+        index:100;
+        background: no-repeat  url('../../images/laptop-cho-sinh-vien-marketing-6.jpg');
+    }
+    .wapper-page-login{
+        background: pink;
+    }
+</style>
+<div class="wapper-page-login row pt-4 pb-4 ">
+    <div class="wrapper-form col col-6 border border-2 p-2 rounded-5 m-auto shadow-lg ">
+        <h3 class="text-center">LOGIN</h3>
         <hr/>
-        <form action="<c:url value="/account/login_handler.do" />">
-            <div class="mb-3">
-                <label for="uEmail">Email :</label>
-                <input type="email" name="uEmail" id="uEmail" class="form-control" value="${param.uEmail}" placeholder="Enter your email" required/>
+        <form class="col-8 m-auto" action="<c:url value="/account/login_handler.do" />">
+            <div class="form-floating mb-3">
+                <input type="email" name="uEmail" id="uEmail" class="form-control" value="${param.uEmail}" required>
+                <label for="uEmail">Email</label>
             </div>
-            <div class="mb-3">
-                <label for="password">Password :</label>
-                <input type="password" name="password" id="password" class="form-control" value="${param.password}" placeholder="Enter your password" required />
+            <div class="form-floating">
+                <input type="password" name="password" id="password" class="form-control" value="${param.password}"required >
+                <label for="password">Password</label>
             </div>
             <div class="form-check mb-3">
                 <label class="form-check-label">
@@ -28,8 +39,5 @@
             <button type="submit" value="login" class="btn btn-primary fw-bold border-0">Login</button>
         </form>
         <i style="color:red;">${errorMsg}</i>
-    </div>
-    <div class="col">
-
     </div>
 </div>
