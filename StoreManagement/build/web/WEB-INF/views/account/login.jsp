@@ -12,7 +12,6 @@
         background-color: #ffe99c;
         opacity: 1;
         index:100;
-        background: no-repeat  url('../../images/laptop-cho-sinh-vien-marketing-6.jpg');
     }
     .wapper-page-login{
         background: pink;

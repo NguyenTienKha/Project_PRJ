@@ -43,7 +43,7 @@ public class AccountController extends HttpServlet {
                 login(request, response);
                 break;
 
-            case "login_handle":
+            case "login_handler":
                 //xu li form login
                 login_handler(request, response);
                 break;

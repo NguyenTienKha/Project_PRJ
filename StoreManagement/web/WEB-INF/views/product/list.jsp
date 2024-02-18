@@ -26,7 +26,7 @@
             <tr>
                 <td>${product.pID}</td>
                 <td>${product.pName}</td>
-                <td>${product.pImage}</td>
+                <td><img src="${product.pImage}" alt="${product.pName}"></td>
                 <td>${product.pPrice}</td>
                 <td>${product.bID}</td>
                 <td>
