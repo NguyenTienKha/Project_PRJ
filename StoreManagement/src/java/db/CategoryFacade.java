@@ -16,24 +16,24 @@ import java.util.List;
  *
  * @author Nguyen Tien Kha
  */
-public class BrandFacade {
+public class CategoryFacade {
 
-    public List<Brand> select() throws SQLException {
-        List<Brand> list = null;
+    public List<Category> select() throws SQLException {
+        List<Category> list = null;
         //Tao connection de ket noi vào DBMS
         Connection con = DBContext.getConnection();
         //Tao doi tuong statement
         Statement stm = con.createStatement();
         //Thuc thi lenh SELECT
-        ResultSet rs = stm.executeQuery("select * from brand");
+        ResultSet rs = stm.executeQuery("select * from Category");
         list = new ArrayList<>();
         while (rs.next()) {
             
-            Brand brand = new Brand();
-            brand.setId(rs.getString("id"));
-            brand.setName(rs.getString("name"));
+            Category category = new Category();
+            category.setId(rs.getString("id"));
+            category.setName(rs.getString("name"));
             
-            list.add(brand);
+            list.add(category);
         }
         con.close();
         return list;

@@ -27,11 +27,11 @@ public class ProductFacade {
         list = new ArrayList<>();
         while (rs.next()) {
             Product product = new Product();
-            product.setpID(rs.getInt("pID"));
-            product.setpName(rs.getString("pName"));
-            product.setpImage(rs.getString("pImage"));
-            product.setpPrice(rs.getDouble("pPrice"));
-            product.setbID(rs.getInt("bID"));
+            product.setId(rs.getInt("id"));
+            product.setName(rs.getString("name"));
+            product.setImage(rs.getString("image"));
+            product.setPrice(rs.getDouble("price"));
+            product.setCategory(rs.getInt("category"));
             list.add(product);
         };
         con.close();
@@ -46,24 +46,24 @@ public class ProductFacade {
         Product product = null;
         if (rs.next()) {
             product = new Product();
-            product.setpID(rs.getInt("pID"));
-            product.setpName(rs.getString("pName"));
-            product.setpImage(rs.getString("pImage"));
-            product.setpPrice(rs.getDouble("pPrice"));
-            product.setbID(rs.getInt("bID"));
+           product.setId(rs.getInt("id"));
+            product.setName(rs.getString("name"));
+            product.setImage(rs.getString("image"));
+            product.setPrice(rs.getDouble("price"));
+            product.setCategory(rs.getInt("category"));
         };
         con.close();
         return product;
     }
 
-    public void add(String pName, String pImage, double pPrice, int bID) throws SQLException {
+    public void add(String name, String image, double price, int category) throws SQLException {
         Connection con = DBContext.getConnection();
         PreparedStatement stm = con.prepareStatement("insert into Product values(?,?,?,?)");
 
-        stm.setString(1, pName);
-        stm.setString(2, pImage);
-        stm.setDouble(3, pPrice);
-        stm.setInt(4, bID);
+        stm.setString(1, name);
+        stm.setString(2, image);
+        stm.setDouble(3, price);
+        stm.setInt(4, category);
         int count = stm.executeUpdate();
 
         con.close();
@@ -71,7 +71,7 @@ public class ProductFacade {
 
     public void delete(int pID) throws SQLException {
         Connection con = DBContext.getConnection();
-        PreparedStatement stm = con.prepareStatement("delete from Product where pID = ?");
+        PreparedStatement stm = con.prepareStatement("delete from Product where id = ?");
         stm.setInt(1, pID);
         int count = stm.executeUpdate();
         con.close();
@@ -81,13 +81,13 @@ public class ProductFacade {
 
         Connection con = DBContext.getConnection();
 
-        PreparedStatement stm = con.prepareStatement("update Product set pName=?, pImage=?, pPrice=?, bID=? where pID=?");
+        PreparedStatement stm = con.prepareStatement("update Product set name=?, image=?, price=?, category=? where id=?");
 
-        stm.setString(1, product.getpName());
-        stm.setString(2, product.getpImage());
-        stm.setDouble(3, product.getpPrice());
-        stm.setDouble(4, product.getbID());
-        stm.setInt(4, product.getpID());
+        stm.setString(1, product.getName());
+        stm.setString(2, product.getImage());
+        stm.setDouble(3, product.getPrice());
+        stm.setDouble(4, product.getCategory());
+        stm.setInt(4, product.getId());
 
         int count = stm.executeUpdate();
 

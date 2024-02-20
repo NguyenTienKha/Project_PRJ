@@ -9,14 +9,14 @@ package db;
  *
  * @author Nguyen Tien Kha
  */
-public class Brand {
+public class Category {
     private String id;
     private String name;
 
-    public Brand() {
+    public Category() {
     }
 
-    public Brand(String id, String name) {
+    public Category(String id, String name) {
         this.id = id;
         this.name = name;
     }

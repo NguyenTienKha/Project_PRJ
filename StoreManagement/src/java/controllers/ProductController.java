@@ -96,12 +96,12 @@ public class ProductController extends HttpServlet {
         String layout = (String) request.getAttribute("layout");
         ProductFacade pf = new ProductFacade();
         try {
-            String pName = request.getParameter("pName");
-            String pImage = request.getParameter("pImage");
-            double pPrice = Double.parseDouble(request.getParameter("pPrice"));
-            int bID = Integer.parseInt(request.getParameter("bID"));
+            String name = request.getParameter("name");
+            String image = request.getParameter("image");
+            double price = Double.parseDouble(request.getParameter("price"));
+            int category = Integer.parseInt(request.getParameter("category"));
 
-            pf.add(pName, pImage, pPrice, bID);
+            pf.add(name, image, price, category);
 
             request.getRequestDispatcher("/product/list.do").forward(request, response);
         } catch (Exception e) {
@@ -115,8 +115,8 @@ public class ProductController extends HttpServlet {
     protected void delete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String layout = (String) request.getAttribute("layout");
-        int pID = Integer.parseInt(request.getParameter("pID"));
-        request.setAttribute("pID", pID);
+        int id = Integer.parseInt(request.getParameter("id"));
+        request.setAttribute("id", id);
         request.getRequestDispatcher(layout).forward(request, response);
     }
 
@@ -125,11 +125,11 @@ public class ProductController extends HttpServlet {
         String layout = (String) request.getAttribute("layout");
         ProductFacade pf = new ProductFacade();
         try {
-            int pID = Integer.parseInt(request.getParameter("pID"));
+            int id = Integer.parseInt(request.getParameter("id"));
             String op = request.getParameter("op");
             switch (op) {
                 case "Yes":
-                    pf.delete(pID);
+                    pf.delete(id);
                     break;
                 case "No":
                     break;
@@ -148,8 +148,8 @@ public class ProductController extends HttpServlet {
         String layout = (String) request.getAttribute("layout");
         ProductFacade pf = new ProductFacade();
         try {
-            int pID = Integer.parseInt(request.getParameter("pID"));
-            Product product = pf.select(pID);
+            int id = Integer.parseInt(request.getParameter("id"));
+            Product product = pf.select(id);
             request.setAttribute("product", product);
 
         } catch (Exception e) {
@@ -164,19 +164,19 @@ public class ProductController extends HttpServlet {
         String layout = (String) request.getAttribute("layout");
         ProductFacade pf = new ProductFacade();
         try {
-            int pID = Integer.parseInt(request.getParameter("pID"));
-            String pName = request.getParameter("pName");
-            String pImage = request.getParameter("pImage");
-            double pPrice = Double.parseDouble(request.getParameter("pPrice"));
-            int bID = Integer.parseInt(request.getParameter("bID"));
+            int id = Integer.parseInt(request.getParameter("id"));
+            String name = request.getParameter("name");
+            String image = request.getParameter("image");
+            double price = Double.parseDouble(request.getParameter("price"));
+            int category = Integer.parseInt(request.getParameter("category"));
 
             Product product = new Product();
 
-            product.setpID(pID);
-            product.setpName(pName);
-            product.setpImage(pImage);
-            product.setpPrice(pPrice);
-            product.setbID(bID);
+            product.setId(id);
+            product.setName(name);
+            product.setImage(image);
+            product.setPrice(price);
+            product.setCategory(category);
 
             request.setAttribute("product", product);
 

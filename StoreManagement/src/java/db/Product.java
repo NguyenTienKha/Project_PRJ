@@ -11,61 +11,63 @@ package db;
  */
 public class Product {
 
-    private int pID;
-    private String pName;
-    private String pImage;
-    private Double pPrice;
-    private int bID;
+    private int id;
+    private String name;
+    private String image;
+    private Double price;
+    private int category;
 
     public Product() {
     }
 
-    public Product(int pID, String pName, String pImage, Double pPrice, int bID) {
-        this.pID = pID;
-        this.pName = pName;
-        this.pImage = pImage;
-        this.pPrice = pPrice;
-        this.bID = bID;
+    public Product(int id, String name, String image, Double price, int category) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.price = price;
+        this.category = category;
     }
 
-    public int getpID() {
-        return pID;
+    public int getId() {
+        return id;
     }
 
-    public void setpID(int pID) {
-        this.pID = pID;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getpName() {
-        return pName;
+    public String getName() {
+        return name;
     }
 
-    public void setpName(String pName) {
-        this.pName = pName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getpImage() {
-        return pImage;
+    public String getImage() {
+        return image;
     }
 
-    public void setpImage(String pImage) {
-        this.pImage = pImage;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public Double getpPrice() {
-        return pPrice;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setpPrice(Double pPrice) {
-        this.pPrice = pPrice;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public int getbID() {
-        return bID;
+    public int getCategory() {
+        return category;
     }
 
-    public void setbID(int bID) {
-        this.bID = bID;
+    public void setCategory(int category) {
+        this.category = category;
     }
+
+   
 
 }

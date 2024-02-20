@@ -12,20 +12,20 @@
         <hr/>
         <form action="<c:url value="/product/create_handler.do" />">
             <div class="mb-3">
-                <label for="pName">Name:</label>
-                <input type="text" name="pName" id="pName" class="form-control" value="${param.pName}" />
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" class="form-control" value="${param.name}" />
             </div>
             <div class="mb-3">
-                <label for="pImage">Url image:</label>
-                <input type="text" name="pImage" id="pImage" class="form-control" value="${param.pImage}" />
+                <label for="image">Url image:</label>
+                <input type="text" name="image" id="image" class="form-control" value="${param.image}" />
             </div>
             <div class="mb-3">
-                <label for="pPrice">Price:</label>
-                <input type="number" name="pPrice" id="pPrice" class="form-control" value="${param.pPrice}" />
+                <label for="price">Price:</label>
+                <input type="number" name="price" id="price" class="form-control" value="${param.price}" />
             </div>
             <div class="mb-3">
-                <label for="bID">Brand ID:</label>
-                <input type="text" name="bID" id="bID" class="form-control" value="${param.bID}" />
+                <label for="categry">Category:</label>
+                <input type="text" name="category" id="category" class="form-control" value="${param.category}" />
             </div>
             <button type="submit" value="create" class="text-white bg-primary fw-bold"><i class="bi bi-check-lg"></i> Create</button>
         </form>

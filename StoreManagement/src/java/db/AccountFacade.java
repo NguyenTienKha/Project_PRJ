@@ -16,19 +16,19 @@ import java.sql.SQLException;
  */
 public class AccountFacade {
 
-    public Account login(String uEmail, String password) throws SQLException {
+    public Account login(String email, String password) throws SQLException {
         Connection con = DBContext.getConnection();
-        PreparedStatement stm = con.prepareStatement("select * from Account where uEmail = ? and password= ? ");
-        stm.setString(1, uEmail);
+        PreparedStatement stm = con.prepareStatement("select * from Account where email = ? and password= ? ");
+        stm.setString(1, email);
         stm.setString(2, password);
 
         ResultSet rs = stm.executeQuery();
         Account account = null;
         if (rs.next()) {
             account = new Account();
-            account.setuID(rs.getInt("uID"));
-            account.setuEmail(rs.getString("uEmail"));
-            account.setuName(rs.getString("uName"));
+            account.setId(rs.getInt("id"));
+            account.setEmail(rs.getString("email"));
+            account.setName(rs.getString("name"));
             account.setRoleID(rs.getString("roleID"));
             account.setPassword(rs.getString("password"));
         };

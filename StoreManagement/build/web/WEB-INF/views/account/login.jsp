@@ -23,8 +23,8 @@
         <hr/>
         <form class="col-8 m-auto" action="<c:url value="/account/login_handler.do" />">
             <div class="form-floating mb-3">
-                <input type="email" name="uEmail" id="uEmail" class="form-control" value="${param.uEmail}" required>
-                <label for="uEmail">Email</label>
+                <input type="email" name="email" id="uEmail" class="form-control" value="${param.email}" required>
+                <label for="email">Email</label>
             </div>
             <div class="form-floating">
                 <input type="password" name="password" id="password" class="form-control" value="${param.password}"required >

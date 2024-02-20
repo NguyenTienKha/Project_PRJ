@@ -11,45 +11,45 @@ package db;
  */
 public class Account {
 
-    private int uID;
-    private String uEmail;
-    private String uName;
+    private int id;
+    private String email;
+    private String name;
     private String password;
     private String roleID;
 
     public Account() {
     }
 
-    public Account(int uID, String uEmail, String uName, String password, String roleID) {
-        this.uID = uID;
-        this.uEmail = uEmail;
-        this.uName = uName;
+    public Account(int id, String email, String name, String password, String roleID) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
         this.password = password;
         this.roleID = roleID;
     }
 
-    public int getuID() {
-        return uID;
+    public int getId() {
+        return id;
     }
 
-    public void setuID(int uID) {
-        this.uID = uID;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getuEmail() {
-        return uEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setuEmail(String uEmail) {
-        this.uEmail = uEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getuName() {
-        return uName;
+    public String getName() {
+        return name;
     }
 
-    public void setuName(String uName) {
-        this.uName = uName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
@@ -68,5 +68,6 @@ public class Account {
         this.roleID = roleID;
     }
 
+    
     
 }

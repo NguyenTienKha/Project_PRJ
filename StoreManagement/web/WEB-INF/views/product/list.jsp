@@ -17,21 +17,21 @@
             <th class="bg-body-secondary">Name</th>
             <th class="bg-body-secondary">Image</th>
             <th class="bg-body-secondary">Price</th>
-            <th class="bg-body-secondary">Brand</th>
+            <th class="bg-body-secondary">Category</th>
             <th class="bg-body-secondary">Operations</th>
         </tr>
     </thead>
     <tbody>
         <c:forEach var="product" items="${list}" >
             <tr>
-                <td>${product.pID}</td>
-                <td>${product.pName}</td>
-                <td><img src="${product.pImage}" alt="${product.pName}"></td>
-                <td>${product.pPrice}</td>
-                <td>${product.bID}</td>
+                <td>${product.id}</td>
+                <td>${product.name}</td>
+                <td><img src="${product.image}" alt="${product.name}"></td>
+                <td>${product.price}</td>
+                <td>${product.category}</td>
                 <td>
-                    <a class="text-decoration-none text-white bg-success fw-bold border border-2 border-success p-1" href="<c:url value="/product/edit.do?id=${product.pID}" />">Edit <i class="bi bi-pen"></i></a> 
-                    <a class="text-decoration-none text-white bg-danger fw-bold border border-2 border-danger p-1" href="<c:url value="/product/delete.do?id=${product.pID}" />">Delete <i class="bi bi-trash"></i></a>
+                    <a class="text-decoration-none text-white bg-success fw-bold border border-2 border-success p-1" href="<c:url value="/product/edit.do?id=${product.id}" />">Edit <i class="bi bi-pen"></i></a> 
+                    <a class="text-decoration-none text-white bg-danger fw-bold border border-2 border-danger p-1" href="<c:url value="/product/delete.do?id=${product.id}" />">Delete <i class="bi bi-trash"></i></a>
                 </td>
             </tr>
         </c:forEach>

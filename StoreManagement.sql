@@ -26,39 +26,89 @@ GO
 
 
 /* Object:  Table [Account] */ 
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [Account](
-	[uID] [int] IDENTITY(1,1)  PRIMARY KEY,
-	[uEmail] [varchar](255) NULL,
-	[uName] [varchar](255) NULL,
-	[password] [varchar](255) NULL,
+	[id] [int] IDENTITY(1,1),
+	[email] [varchar](255) NOT NULL,
+	[name] [varchar](255) NOT NULL,
+	[password] [char](64) NOT NULL,
 	[roleID] [char](50) NOT NULL
-)
+CONSTRAINT [PK_Account] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
 /* Object:  Table [Brand] */ 
-CREATE TABLE [Brand](
-	[bID] [int] PRIMARY KEY,
-	[bName] [nvarchar](50) NOT NULL
-)
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [Category](
+	[id] [int] NOT NULL,
+	[name] [nvarchar](50) NOT NULL,
+CONSTRAINT [PK_Category] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
 /* Object:  Table [Product] */ 
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE TABLE [Product](
-	[pID] [int] IDENTITY(1,1) PRIMARY KEY,
-	[pName] [nvarchar](max) NULL,
-	[pImage] [nvarchar](max) NULL,
-	[pPrice] [money] NULL,
-	[bID] [int] REFERENCES [Brand](bID)
-)
+	[id] [int] IDENTITY(1,1),
+	[name] [nvarchar](max) NOT NULL,
+	[image] [nvarchar](max) NOT NULL,
+	[price] [money] NOT NULL,
+	[category] [int] REFERENCES [Category](id) NOT NULL,
+CONSTRAINT [PK_Product] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
-/* Object:  Table [Cart] */
-CREATE TABLE [Cart](
-	[uID] [int] NOT NULL REFERENCES [Account](uID),
-	[pID] [int] NOT NULL REFERENCES [Product](pID),
-	[amount] [int] NOT NULL,
-	PRIMARY KEY ([uID],[pID])
-)
+/* Object:  Table [Order] */
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [Order](
+    [id] [int] IDENTITY(1,1),
+    [customer_id] [int] REFERENCES [Account](id) NOT NULL,
+    orderDate datetime,
+    TotalAmount money
+CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+/* Object:  Table [Order_Detail] */
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [Order_Detail](
+	[id] [int] IDENTITY(1,1),
+	[order_id] [int] REFERENCES [Order](id),
+	[product_id] [int] REFERENCES [Product](id),
+	[quantity] [int] NOT NULL,
+	[price] money,
+CONSTRAINT [PK_Order_Detail] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
 
@@ -67,70 +117,70 @@ GO
 
 /* data for table [Account]  */
 SET IDENTITY_INSERT [Account] ON;
-INSERT INTO [Account] ([uID],[uEmail],[uName],[password],[roleID])
+INSERT INTO [Account] ([id],[email],[name],[password],[roleID])
 VALUES
-(1,'admin@gmail.com','Nguyen Tien Kha','1','ADMIN'),
-(2,'user@gmail.com','John','2','USER'),
-(3,'user2@gmail.com','Beck','3','USER')
+(1,'admin@gmail.com','Admin','6B86B273FF34FCE19D6B804EFF5A3F5747ADA4EAA22F1D49C01E52DDB7875B4B','ADMIN'),
+(2,'user@gmail.com','John','D4735E3A265E16EEE03F59718B9B5D03019C07D8B6C51F90DA3A666EEC13AB35','USER'),
+(3,'user2@gmail.com','Beck','4E07408562BEDB8B60CE05C1DECFE3AD16B72230967DE01F640B7E4729B49FCE','USER')
 
 SET IDENTITY_INSERT [Account] OFF;
 
 /* data for table [Brand]  */
-INSERT INTO [Brand] 
+INSERT INTO [Category] 
 VALUES
-('101','HP'),
-('102','APPLE'),
-('103','LENOVO'),
-('104','ASUS'),
-('105','DELL')
+('1','Jordan'),
+('2','Basketball'),
+('3','Scoccer'),
+('4','Lifestyle'),
+('5','Running')
 
 /* data for table [Product]  */
 SET IDENTITY_INSERT [Product] ON;
-INSERT INTO [Product]([pID],[pName],[pImage],[pPrice],[bID])
+INSERT INTO [Product]([id],[name],[image],[price],[category])
 VALUES
-(1,'Laptop HP Pavilion 14-DV2073TU 7C0P2PA',N'https://i.imgur.com/hdOsXKX.jpg',16490000,'101'),
-(2,'Laptop HP Victus 15-FA1155TX 952R1PA',N'https://i.imgur.com/OgxzatB.jpg',17990000,'101'),
-(3,'Laptop HP Pavilion 15-EG2089TU 7C0R1PA',N'https://i.imgur.com/YQJCml6.jpg',17990000,'101'),
-(4,'Laptop HP Envy X360 BF0112TU 7C0N9PA',N'https://i.imgur.com/IcKYiBT.jpg',22990000,'101'),
-(5,'Laptop HP Gaming Victus 15-FB1023AX 94F20PA',N'https://i.imgur.com/hkYIoKm.jpg',17590000,'101'),
-(6,'Laptop HP 14S DQ2644TU',N'https://i.imgur.com/X0dOn50.jpg',8990000,'101'),
-(7,'Laptop HP Envy X360 2IN1 14-ES0013',N'https://i.imgur.com/gCLBfUq.jpg',17990000,'101'),
-(8,'Laptop HP Gaming Victus 15-FA0031DX 6503849',N'https://i.imgur.com/HeDtjBP.jpg',160990000,'101'),
+(1,N'Tatum 2',N'https://i.imgur.com/WYvLWCL.jpeg',125,'1'),
+(2,N'Air Jordan 1 Retro High OG',N'https://i.imgur.com/E9SUUP3.jpeg',180,'1'),
+(3,N'Air Jordan 13 Retro "Blue Grey"',N'https://i.imgur.com/XPZQAEr.jpeg',200,'1'),
+(4,N'Air Jordan 3 Retro Craft "Ivory"',N'https://i.imgur.com/iwiY9Fj.jpeg',210,'1'),
+(5,N'Air Jordan 1 Mid',N'https://i.imgur.com/2ebH1mM.jpeg',125,'1'),
+(6,N'Air Jordan 1 Zoom CMFT 2',N'https://i.imgur.com/k5CuQQy.jpeg',150,'1'),
+(7,N'Air Jordan 1 Low SE',N'https://i.imgur.com/VJJfvgK.jpeg',125,'1'),
+(8,N'Air Jordan 1 Mid SE',N'https://i.imgur.com/0fT6JCZ.jpeg',135,'1'),
 
-(9,'iMac M3 24 inch 8GB 256GB 8GPU',N'https://i.imgur.com/0M3dZVb.jpg',35990000,'102'),
-(10,'Apple MacBook Air M1 256GB 2020',N'https://i.imgur.com/joeyyAn.jpg',18290000,'102'),
-(11,'Apple Macbook Air M2 2022 8GB 256GB',N'https://i.imgur.com/T2G5Nmh.jpg',26390000,'102'),
-(12,'Macbook Pro 14 M3 Pro 18GB - 512GB',N'https://i.imgur.com/s6h5PGB.jpg',49990000,'102'),
-(13,'Apple Macbook Pro 13 M2 2022 8GB 256GB',N'https://i.imgur.com/Epa9Pfs.jpg',29590000,'102'),
-(14,'Apple MacBook Pro 13 M2 2022 16GB 256GB',N'https://i.imgur.com/fvjAVey.jpg',35390000,'102'),
-(15,'Macbook Air 15 inch M2 2023 8GB 256GB',N'https://i.imgur.com/Km9q9iM.jpg',28990000,'102'),
-(16,'Apple Macbook Air M2 2022 16GB 512GB',N'https://i.imgur.com/8GJrHKL.jpg',36990000,'102'),
+(9,N'Nike G.T. Jump 2 ASW',N'https://i.imgur.com/t2R41eI.jpeg',190,'2'),
+(10,N'LeBron NXXT Gen AMPD IPS',N'https://i.imgur.com/daZdQuL.jpeg',170,'2'),
+(11,N'Nike Elevate 3',N'https://i.imgur.com/svpdwhj.jpeg',85,'2'),
+(12,N'Nike Precision 6',N'https://i.imgur.com/vEnGSYr.jpeg',80,'2'),
+(13,N'Air Jordan XXXVIII',N'https://i.imgur.com/hkTAHoJ.jpeg',200,'2'),
+(14,N'Jordan Stay Loyal 3',N'https://i.imgur.com/Z9UsMUP.jpeg',115,'2'),
+(15,N'KD Trey 5 X',N'https://i.imgur.com/Obvlkh7.jpeg',100,'2'),
+(16,N'Nike G.T. Jump',N'https://i.imgur.com/6JilT9X.jpeg',180,'2'),
 
-(17,'Laptop Lenovo Yoga Duet 7 13ITL6 82MA009NVN',N'https://i.imgur.com/TWbOp7s.jpg',18990000,'103'),
-(18,'Laptop Lenovo IdeaPad Gaming 3 15ACH6 82K2027QVN',N'https://i.imgur.com/6gyfYVf.jpg',14990000,'103'),
-(19,'Laptop Lenovo Ideapad Gaming 3 15ARH7 82SB00BBVN',N'https://i.imgur.com/qQFClMH.jpg',17490000,'103'),
-(20,'Laptop Lenovo LOQ 15APH8 82XT00BTVN',N'https://i.imgur.com/jEGpwcS.jpeg',22990000,'103'),
-(21,'Laptop Lenovo Ideapad Flex 5 14ALC7 82R900ECVN',N'https://i.imgur.com/N5o848c.jpeg',15490000,'103'),
-(22,'Laptop Lenovo Yoga Duet 7 13ITL6 82MA009PVN',N'https://i.imgur.com/9QmqLu4.jpeg',25990000,'103'),
-(23,'Laptop Lenovo LOQ 15IAX9 83GS000FVN',N'https://i.imgur.com/jsi7dE2.jpeg',19490000,'103'),
-(24,'Laptop Lenovo Yoga Slim 7 14ACN6 82N7002MVN',N'https://i.imgur.com/VxgPPmT.jpeg',20490000,'103'),
+(17,N'Nike Superfly 9 Elite Mercurial Dream Speed',N'https://i.imgur.com/tufUvjr.jpeg',295,'3'),
+(18,N'Nike Phantom Luna 2 Elite',N'https://i.imgur.com/FNyhPYz.jpeg',285,'3'),
+(19,N'Nike Mercurial Superfly 9 Pro',N'https://i.imgur.com/WjBiDLL.jpeg',170,'3'),
+(20,N'Nike Phantom Luna 2 Elite LV8',N'https://i.imgur.com/fHJrf8v.jpeg',295,'3'),
+(21,N'Nike Phantom Luna Elite',N'https://i.imgur.com/GOEANux.jpeg',285,'3'),
+(22,N'Nike Phantom GX Pro',N'https://i.imgur.com/lnHf5B7.jpeg',170,'3'),
+(23,N'Nike Mercurial Superfly 9 Academy By You',N'https://i.imgur.com/vxgqmMy.jpeg',130,'3'),
+(24,N'Nike Phantom Luna 2 Elite By You',N'https://i.imgur.com/C9UOwx8.jpeg',305,'3'),
 
-(25,'Laptop Asus TUF GAMING F15 FX506HF-HN014W',N'https://i.imgur.com/x9Vasdh.jpeg',1590000,'104'),
-(26,'Laptop Asus TUF Gaming F15 FX507ZC4-HN099W',N'https://i.imgur.com/okXXX4q.jpeg',20990000,'104'),
-(27,'Laptop Asus Zenbook 14 OLED UM3402YA-KM405W',N'https://i.imgur.com/Ka0K4YI.jpeg',20490000,'104'),
-(28,'Laptop Asus Zenbook 14 Oled UX3405MA-PP151W',N'https://i.imgur.com/35L7yTE.jpeg',27390000,'104'),
-(29,'Laptop Asus VivoBook 14X OLED S3405VA-KM071W',N'https://i.imgur.com/4Ix2BYe.jpeg',22330000,'104'),
-(30,'Laptop Asus ROG Strix G16 G614JU-N3135W',N'https://i.imgur.com/M9JafrG.jpeg',31990000,'104'),
-(31,'Laptop Asus TUF Gaming A15 FA507NU-LP131W',N'https://i.imgur.com/hm45sJp.jpeg',22490000,'104'),
-(32,'Laptop ASUS ROG Flow X13 GV301RC-LJ050W',N'https://i.imgur.com/dzPCPH4.jpeg',26490000,'104'),
+(25,N'Nike Dunk Low Retro',N'https://i.imgur.com/6XZX7n9.jpeg',115,'4'),
+(26,N'Nike Air Max Plus Drift',N'https://i.imgur.com/Uj86aoU.jpeg',185,'4'),
+(27,N'Nike Air Max 90',N'https://i.imgur.com/cJoHTaJ.jpeg',140,'4'),
+(28,N'Nike Air Force 1 ''07',N'https://i.imgur.com/Zs8xdNi.jpeg',115,'4'),
+(29,N'Nike Air Max 90 GORE-TEX',N'https://i.imgur.com/nhbuGrZ.jpeg',160,'4'),
+(30,N'Nike Air Max 270',N'https://i.imgur.com/kFEdzZl.jpeg',160,'4'),
+(31,N'Nike Dunk High Retro',N'https://i.imgur.com/iyzf6Zx.jpeg',130,'4'),
+(32,N'Nike Blazer Mid ''77 Vintage',N'https://i.imgur.com/ZGmHV0Q.jpeg',105,'4'),
 
-(33,'Laptop Dell Inspiron 14 I7430-7374SLV CN29D',N'https://i.imgur.com/9oqggSi.jpeg',21490000,'105'),
-(34,'Laptop Dell Inspiron 15 3520-5810BLK 102F0',N'https://i.imgur.com/GzceoqY.jpeg',11990000,'105'),
-(35,'Laptop Dell Inspiron 15 3520 D5N53',N'https://i.imgur.com/UKs7Nsl.jpeg',9990000,'105'),
-(36,'Laptop Dell Inspiron 15 3520 YTC9K',N'https://i.imgur.com/4kMvuSD.jpeg',12590000,'105'),
-(37,'Laptop Dell Latitude 5330 27KJ4',N'https://i.imgur.com/wgxb2WZ.jpeg',16990000,'105'),
-(38,'Laptop Dell Vostro 3520 GD02R',N'https://i.imgur.com/QFpIbUl.jpeg',13490000,'105'),
-(39,'Laptop Dell Latidude 7320 9PPWV',N'https://i.imgur.com/0Kk0OlP.jpeg',16990000,'105'),
-(40,'Laptop Dell Inspiron 7506-5903SLV',N'https://i.imgur.com/J89mw8W.jpeg',17990000,'105')
+(33,N'Nike InfinityRN 4',N'https://i.imgur.com/NqgDKuc.jpeg',160,'5'),
+(34,N'Nike Vaporfly 3',N'https://i.imgur.com/u3b8BDu.jpeg',270,'5'),
+(35,N'Nike InfinityRN 4 GORE-TEX',N'https://i.imgur.com/XZQhriu.jpeg',180,'5'),
+(36,N'Nike Alphafly 3',N'https://i.imgur.com/EiWb2WN.jpeg',285,'5'),
+(37,N'Nike Pegasus FlyEase',N'https://i.imgur.com/Uk8nYPV.jpeg',130,'5'),
+(38,N'Nike Pegasus Trail 3',N'https://i.imgur.com/07bxPhE.jpeg',140,'5'),
+(39,N'Nike Pegasus Trail 4 GORE-TEX By You',N'https://i.imgur.com/G70WAzW.jpeg',190,'5'),
+(40,N'Nike Pegasus FlyEase By You',N'https://i.imgur.com/lNFOu3I.jpeg',160,'5')
 
 SET IDENTITY_INSERT [Product] OFF;
