@@ -7,8 +7,10 @@ package controllers;
 
 import db.Account;
 import db.AccountFacade;
+import db.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -53,6 +55,12 @@ public class AccountController extends HttpServlet {
                 //xu ly logout
                 logout(request, response);
                 break;
+            case "create":
+                create(request, response);
+                break;
+            case "create_handler":
+                create_handler(request, response);
+                break;
         }
     }
 
@@ -94,7 +102,7 @@ public class AccountController extends HttpServlet {
             //neu login thanh cong
             if (account != null) {
                 //luu email & password vao cookies
-                int maxAge = remember? 7 * 24 * 60 * 60: 0;//1 week
+                int maxAge = remember ? 7 * 24 * 60 * 60 : 0;//1 week
                 Cookie ckEmail = new Cookie("email", email);
                 //Neu khong setMaxAge() thi ckEmail chi la cookie tam thoi
                 //chi ton trong 1 session
@@ -128,6 +136,52 @@ public class AccountController extends HttpServlet {
         session.invalidate();
         //quay ve trang home
         request.getRequestDispatcher("/").forward(request, response);
+    }
+
+    protected void create(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String layout = (String) request.getAttribute("layout");
+        try {
+            AccountFacade af = new AccountFacade();
+            List<Account> list = af.select();
+            request.setAttribute("list", list);
+        } catch (Exception e) {
+            e.printStackTrace();//in chi tiet ngoai le
+            request.setAttribute("errorMsg", "Can't read the Account table !");
+        }
+        request.getRequestDispatcher(layout).forward(request, response);
+    }
+
+    protected void create_handler(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String layout = (String) request.getAttribute("layout");
+        AccountFacade af = new AccountFacade();
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            String email = request.getParameter("email");
+            String fullName = request.getParameter("fullName");
+            
+            String password = request.getParameter("password");
+
+            //Tạo đối tượng Account
+            Account account = new Account();
+            account.setId(id);
+            account.setEmail(email);
+            account.setFullName(fullName);
+            account.setPassword(password);
+
+            //Lưu toy vào db
+            af.create(account);
+            //Quay vể trang toy/list.do
+            request.getRequestDispatcher("/account/index.do").forward(request, response);
+//                    response.sendRedirect(request.getContextPath() + "/toy/list.do");
+        } catch (Exception e) {
+            e.printStackTrace();//in chi tiet ngoai le
+            request.setAttribute("errorMsg", "Can't save toy into the db !");
+            //chuyen ve trang create neu xay re exception
+            request.setAttribute("action", "create");
+        }
+        request.getRequestDispatcher(layout).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
