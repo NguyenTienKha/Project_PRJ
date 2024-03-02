@@ -22,7 +22,7 @@ header {
     transition: all .15s ease;
 }
 main {
-    margin-top: calc(36px + 25px);
+    margin-top: calc(36px + 60px);
     background-color: #f5f5f5;
 }
 a{
