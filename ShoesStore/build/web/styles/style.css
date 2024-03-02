@@ -36,4 +36,17 @@ a{
 .form-login form{
     margin-inline: auto;
 }
-.wrapper-img-login{z-index:-1;}
+.wrapper-img-login{
+    z-index:-1;
+}
+
+/*Style for home page*/
+.product-featured{
+    z-index: 1000;
+    top:60%;
+    left:5%;
+}
+.btn-add-card,.btn-show-more{
+    width: fit-content;
+    margin-inline:auto;
+}

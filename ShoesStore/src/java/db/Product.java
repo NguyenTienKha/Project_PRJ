@@ -5,28 +5,34 @@
  */
 package db;
 
+import java.util.List;
+
 /**
  *
  * @author PHT
  */
 public class Product {
+
     private int id;
     private String name;
+    private String gender;
     private double price;
     private double discount;
     private int categoryId;
+    private List<String> sizes;
 
     public Product() {
     }
 
-    public Product(int id, String name, double price, double discount, int categoryId) {
+    public Product(int id, String name, String gender, double price, double discount, int categoryId, List<String> sizes) {
         this.id = id;
         this.name = name;
+        this.gender = gender;
         this.price = price;
         this.discount = discount;
         this.categoryId = categoryId;
+        this.sizes = sizes;
     }
-    
 
     public int getId() {
         return id;
@@ -42,6 +48,14 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public double getPrice() {
@@ -67,6 +81,13 @@ public class Product {
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
-    
-    
+
+    public List<String> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(List<String> sizes) {
+        this.sizes = sizes;
+    }
+
 }

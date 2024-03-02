@@ -25,8 +25,9 @@
         <div class="header d-flex flex-column">
             <div class="row information-user">
                 <c:if test="${account == null}">
-                    <div class="d-flex flex-row justify-content-end">
-                        <a class=""  href="<c:url value="/account/login.do" />">Login</a>
+                    <div class="d-flex flex-row justify-content-end">                 
+                        <a class="ps-1 pe-1"  href="<c:url value="/account/create.do" />">Sign in</a> |
+                        <a class="ps-1 pe-1"  href="<c:url value="/account/login.do" />">Login</a>
                     </div>
                 </c:if>
                 <c:if test="${account != null}">
@@ -36,13 +37,35 @@
                     </div>
                 </c:if>
             </div>
+            <div class="row mt-2">
+                <nav class=" d-flex justify-content-between align-items-center">
+                    <span class="navbar-left">
+                        <img src="<c:url value="/images/logo-nike.png" />"  width="50%"/>
+                    </span>
+                    <span class="navbar-middle">
+                        <a class="fw-bold text-decoration-none ps-3 pe-3"  href="<c:url value="/" />">Home</a> 
+                        <a class="fw-bold text-decoration-none ps-3 pe-3"  href="<c:url value="/product/list.do" />">Shoes</a> 
+                    </span>
+
+                    <span class="navbar-right">
+                        <div class="d-flex align-items-center justify-content-evenly">
+                            <form class="form-search border border-1 rounded-5 p-2 me-1 col-8 d-flex">
+                                <i class="bi bi-search"></i>
+                                <input class="form-input border-0 w-100" type="text" placeholder="Search">
+                            </form>
+                            <div><i class="bi bi-basket2-fill"></i><sup>1</sup></div>
+                        </div>
+                    </span>
+                </nav>
+            </div>
+            <hr/>
         </div>
-     
+
         <div class="body">
             <jsp:include page="/WEB-INF/views/${controller}/${action}.jsp" />
         </div>
 
-
+        <hr/>
         <div class="footer text-center">
             &copy Nguyen Tien Kha - SE170170 - FPT Students
         </div>

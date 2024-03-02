@@ -17,26 +17,32 @@ import java.util.List;
  * @author Nguyen Tien Kha
  */
 public class ProductFacade {
-    
-    public List<Product> select() throws SQLException{
+
+    public List<Product> select() throws SQLException {
         List<Product> list = null;
         //Tạo connection để kết nối vào DBMS
         Connection con = DBContext.getConnection();
         //Tạo đối tượng statement
         Statement stm = con.createStatement();
         //Thực thi lệnh SELECT
-        ResultSet rs = stm.executeQuery("select * from Product");
+        ResultSet rs = stm.executeQuery("SELECT p.*, ps.Size FROM Product p INNER JOIN Product_Size ps ON p.Id = ps.ProductId");
         list = new ArrayList<>();
+        Product currentProduct = null;
         while (rs.next()) {
-            //Doc mau tin hien hanh de vao doi tuong product
-            Product product = new Product();
-            product.setId(rs.getInt("Id"));
-            product.setName(rs.getString("Name"));
-            product.setPrice(rs.getDouble("Price"));
-            product.setDiscount(rs.getDouble("Discount"));
-            product.setCategoryId(rs.getInt("CategoryId"));
-            //Them product vao list
-            list.add(product);
+            int productId = rs.getInt("Id");
+            if (currentProduct == null || currentProduct.getId() != productId) {
+                currentProduct = new Product();
+                currentProduct.setId(productId);
+                currentProduct.setName(rs.getString("Name"));
+                currentProduct.setGender(rs.getString("Gender"));
+                currentProduct.setPrice(rs.getDouble("Price"));
+                currentProduct.setDiscount(rs.getDouble("Discount"));
+                currentProduct.setCategoryId(rs.getInt("CategoryId"));
+                currentProduct.setSizes(new ArrayList<>());
+                //Them product vao list
+                list.add(currentProduct);
+            }
+            currentProduct.getSizes().add(rs.getString("Size"));
         }
         con.close();
         return list;
