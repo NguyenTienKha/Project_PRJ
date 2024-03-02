@@ -98,7 +98,7 @@
         </c:forEach>
         <br/>
         <div class="text-center fs-2"><i class="bi bi-three-dots"></i></div>
-        <button class="btn-show-more btn btn-dark rounded-5 text-nowrap mt-4">Show more</button>
+        <a class="btn-show-more btn btn-dark rounded-5 text-nowrap mt-4" href="<c:url value="/product/list.do" />">Show more</a>
 
     </div>
 

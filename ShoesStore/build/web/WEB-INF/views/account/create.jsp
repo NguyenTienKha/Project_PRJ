@@ -19,14 +19,12 @@
                 <label for="fullName">Full Name:</label>
                 <input type="text" name="fullName" id="fullName" class="form-control" value="${param.fullName}" />
             </div>
+            <div class="mb-3">
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password" class="form-control" value="${param.password}" />
             </div>
             <button type="submit" value="create"><i class="bi bi-check-lg"></i> Create</button>
         </form>
         <i style="color:red;">${errorMsg}</i>
-    </div>
-    <div class="col">
-
     </div>
 </div>
