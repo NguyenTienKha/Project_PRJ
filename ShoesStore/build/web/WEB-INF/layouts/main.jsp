@@ -46,6 +46,7 @@
                 </span>
                 <span class="navbar-middle">
                     <a class="fw-bold text-decoration-none" href="<c:url value="/" />">Home</a> 
+                    <a class="fw-bold text-decoration-none ps-3 pe-3"  href="<c:url value="/product/list.do" />">Shoes</a>
                 </span>
                 <span class="navbar-right">
                     <div class="d-flex align-items-center justify-content-evenly">                        
