@@ -12,10 +12,6 @@
         <hr/>
         <form action="<c:url value="/account/create_handler.do" />">
             <div class="mb-3">
-                <label for="id">Id:</label>
-                <input type="text" name="id" id="id" class="form-control" value="${param.id}" />
-            </div>
-            <div class="mb-3">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" class="form-control" value="${param.email}" />
             </div>
@@ -23,11 +19,6 @@
                 <label for="fullName">Full Name:</label>
                 <input type="text" name="fullName" id="fullName" class="form-control" value="${param.fullName}" />
             </div>
-            <div class="mb-3">
-                <label for="roleId">Role Id:</label>
-                <input type="text" name="roleId" id="roleId" class="form-control" value="${param.roleId}" />
-            </div>
-            <div class="mb-3">
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password" class="form-control" value="${param.password}" />
             </div>

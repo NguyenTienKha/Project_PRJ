@@ -5,10 +5,18 @@
         <group>
             <file>file:/D:/Materials%20FPT/PRJ301/Project_PRJ/ShoesStore/web/WEB-INF/layouts/main.jsp</file>
             <file>file:/D:/Materials%20FPT/PRJ301/Project_PRJ/ShoesStore/web/WEB-INF/views/home/index.jsp</file>
+            <file>file:/D:/Materials%20FPT/PRJ301/Project_PRJ/ShoesStore/src/java/controllers/ProductController.java</file>
             <file>file:/D:/Materials%20FPT/PRJ301/Project_PRJ/ShoesStore/web/styles/style.css</file>
+            <file>file:/D:/Materials%20FPT/PRJ301/Project_PRJ/ShoesStore/src/java/controllers/AccountController.java</file>
+            <file>file:/D:/Materials%20FPT/PRJ301/Project_PRJ/ShoesStore/src/java/db/Product.java</file>
+            <file>file:/D:/Materials%20FPT/PRJ301/Project_PRJ/ShoesStore/src/java/db/AccountFacade.java</file>
+            <file>file:/D:/Materials%20FPT/PRJ301/Project_PRJ/ShoesStore/src/java/controllers/HomeController.java</file>
+            <file>file:/D:/Materials%20FPT/PRJ301/Project_PRJ/ShoesStore/web/index.jsp</file>
+            <file>file:/D:/Materials%20FPT/PRJ301/Project_PRJ/ShoesStore/src/java/db/Account.java</file>
+            <file>file:/D:/Materials%20FPT/PRJ301/Project_PRJ/ShoesStore/web/WEB-INF/views/product/list.jsp</file>
+            <file>file:/D:/Materials%20FPT/PRJ301/Project_PRJ/ShoesStore/web/WEB-INF/views/account/create.jsp</file>
             <file>file:/D:/Materials%20FPT/PRJ301/Project_PRJ/ShoesStore/web/WEB-INF/views/account/login.jsp</file>
             <file>file:/D:/Materials%20FPT/PRJ301/Project_PRJ/ShoesStore/src/java/controllers/CartController.java</file>
-            <file>file:/D:/Materials%20FPT/PRJ301/Project_PRJ/ShoesStore/web/index.jsp</file>
         </group>
     </open-files>
 </project-private>

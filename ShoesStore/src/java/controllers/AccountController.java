@@ -8,6 +8,7 @@ package controllers;
 import db.Account;
 import db.AccountFacade;
 import db.Product;
+import hashing.Hasher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -157,27 +158,16 @@ public class AccountController extends HttpServlet {
         String layout = (String) request.getAttribute("layout");
         AccountFacade af = new AccountFacade();
         try {
-            int id = Integer.parseInt(request.getParameter("id"));
             String email = request.getParameter("email");
             String fullName = request.getParameter("fullName");
-            
+            String roleId = "US";
             String password = request.getParameter("password");
-
-            //Tạo đối tượng Account
-            Account account = new Account();
-            account.setId(id);
-            account.setEmail(email);
-            account.setFullName(fullName);
-            account.setPassword(password);
-
-            //Lưu toy vào db
-            af.create(account);
-            //Quay vể trang toy/list.do
-            request.getRequestDispatcher("/account/index.do").forward(request, response);
-//                    response.sendRedirect(request.getContextPath() + "/toy/list.do");
+            String hashedPassword = Hasher.hash(password);
+            af.create(email, fullName, hashedPassword, roleId);
+            request.getRequestDispatcher("/home/index.do").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();//in chi tiet ngoai le
-            request.setAttribute("errorMsg", "Can't save toy into the db !");
+            request.setAttribute("errorMsg", "Can't save account into the db !");
             //chuyen ve trang create neu xay re exception
             request.setAttribute("action", "create");
         }

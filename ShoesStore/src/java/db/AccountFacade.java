@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,17 +89,16 @@ public class AccountFacade {
         return account;
     }
 
-    public void create(Account account) throws SQLException {
+    public void create(String email, String fullName,String password ,String roleId) throws SQLException {
         //Tao connection de ket noi vào DBMS
         Connection con = DBContext.getConnection();
         //Tao doi tuong statement
-        PreparedStatement stm = con.prepareStatement("insert into Accout values(?,?,?,?,?)");
+        PreparedStatement stm = con.prepareStatement("insert into Account values(?,?,?,?)");
         //Truyen gia tri cho cac tham so
-        stm.setInt(1, account.getId());
-        stm.setString(2, account.getEmail());
-        stm.setString(3, account.getFullName());
-        stm.setString(4, account.getRoleId());
-        stm.setString(5, account.getPassword());
+        stm.setString(1, email);
+        stm.setString(2,fullName);
+        stm.setString(3, password);
+        stm.setString(4, roleId);
         //Thuc thi lenh INSERT
         int count = stm.executeUpdate();
         con.close();
