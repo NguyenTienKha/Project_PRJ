@@ -37,38 +37,78 @@
                     </div>
                 </c:if>
             </div>
-            <div class="row mt-2">
-                <nav class=" d-flex justify-content-between align-items-center">
-                    <span class="navbar-left">
-                        <img src="<c:url value="/images/logo-nike.png" />"  width="50%"/>
-                    </span>
-                    <span class="navbar-middle">
-                        <a class="fw-bold text-decoration-none ps-3 pe-3"  href="<c:url value="/" />">Home</a> 
-                        <a class="fw-bold text-decoration-none ps-3 pe-3"  href="<c:url value="/product/list.do" />">Shoes</a> 
-                    </span>
-
-                    <span class="navbar-right">
-                        <div class="d-flex align-items-center justify-content-evenly">
-                            <form class="form-search border border-1 rounded-5 p-2 me-1 col-8 d-flex">
-                                <i class="bi bi-search"></i>
-                                <input class="form-input border-0 w-100" type="text" placeholder="Search">
-                            </form>
-                            <div><i class="bi bi-basket2-fill"></i><sup>1</sup></div>
-                        </div>
-                    </span>
-                </nav>
-            </div>
-            <hr/>
+        </div>
+<!--        Nav bar-->
+        <div class="d-flex header-navbar bg-light w-100 z-3">
+            <nav class="d-flex w-100 navbar-move d-flex justify-content-between align-items-center">
+                <span class="navbar-left">
+                    <img src="<c:url value="/images/logo-nike.png" />"  width="27%"/>
+                </span>
+                <span class="navbar-middle">
+                    <a class="fw-bold text-decoration-none" href="<c:url value="/" />">Home</a> 
+                    <a class="fw-bold text-decoration-none ps-3 pe-3"  href="<c:url value="/product/list.do" />">Shoes</a>
+                </span>
+                <span class="navbar-right">
+                    <div class="d-flex align-items-center justify-content-evenly">                        
+                        <form class="form-search border border-1 rounded-5 py-1 px-4 me-1 col-8 d-flex align-items-center">    
+                            <i onclick="openSearchBar()" class="bi bi-search me-2 p-1 cursor-pointer"></i>
+                            <input onchange="handleSearch()" class="form-input border-0 w-100 search-btn" type="text" placeholder="Search">
+                        </form>
+                        <div class="navbar-cart"><i class="bi bi-basket2-fill"></i><sup>1</sup></div>
+                    </div>
+                </span>
+                <span style="display: none;" class="navbar-added"></span>
+            </nav>
+            <div class="result-bar"></div>
         </div>
 
-        <div class="body">
+        <main>
             <jsp:include page="/WEB-INF/views/${controller}/${action}.jsp" />
-        </div>
+        </main>
 
-        <hr/>
-        <div class="footer text-center">
+        <footer class="text-center">
             &copy Nguyen Tien Kha - SE170170 - FPT Students
-        </div>
+        </footer>
     </div>
 </body>
+<script>
+    var lastScrollTop = 0;
+    var navbar = document.querySelector('.header-navbar');
+    window.addEventListener("scroll", function () {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop) {
+            navbar.style.top = '-100%';
+        } else {
+            if (scrollTop === 0) {
+                navbar.style.top = '36px';
+            } else {
+                navbar.style.top = '0px';
+            }
+        }
+        navbar.style.transition = 'all ease-in 0.2s';
+        lastScrollTop = scrollTop;
+    });
+    function openSearchBar() {
+        let navLeft = document.querySelector('.navbar-left');
+        let navMiddle = document.querySelector('.navbar-middle');
+        let navRight = document.querySelector('.navbar-right');
+        let navCart = document.querySelector('.navbar-cart');
+        let navMove = document.querySelector(".navbar-move");
+        let navAdded = document.querySelector('.navbar-added');
+        navMiddle.style.display = 'none';
+        navCart.style.display = 'none';
+        navLeft.classList.add("col-2");
+        navRight.classList.add("col-8");
+        navAdded.innerHTML = "<span class='cancel-navbar'>Cancel</span>"
+        navAdded.style.display = 'block';
+        navAdded.classList.add("col-2");
+        document.querySelector('.search-btn').style.transition = 'all 0.3s ease';
+        navRight.style.transition = 'all 0.3s ease';
+        navAdded.style.transition = 'all 0.3s ease';
+        navMove.style.transition = 'all 0.3s ease';    
+    }
+    function cancelSearchBar() {
+        
+    }
+</script>
 
