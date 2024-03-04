@@ -6,6 +6,7 @@
 package db;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -47,4 +48,41 @@ public class ProductFacade {
         con.close();
         return list;
     }
+
+    public List<Product> search(String name) throws SQLException {
+        List<Product> list = null;
+        // Tạo connection để kết nối vào DBMS
+        Connection con = DBContext.getConnection();
+        // Tạo đối tượng PreparedStatement để sử dụng truy vấn có tham số
+        PreparedStatement stm = con.prepareStatement("SELECT p.*, c.Name AS CategoryName "
+                + "FROM Product p "
+                + "INNER JOIN Category c ON p.CategoryId = c.Id "
+                + "WHERE p.Name LIKE ? OR c.Name = ? OR p.Gender = ?");
+        // Thiết lập giá trị cho các tham số
+        stm.setString(1, "%" + name + "%");
+        stm.setString(2, "%" + name + "%");
+        stm.setString(3, name);
+        // Thực thi truy vấn
+        ResultSet rs = stm.executeQuery();
+        list = new ArrayList<>();
+        Product p = null;
+        while (rs.next()) {
+            int productId = rs.getInt("Id");
+            if (p == null || p.getId() != productId) {
+                p = new Product();
+                p.setId(productId);
+                p.setName(rs.getString("Name"));
+                p.setGender(rs.getString("Gender"));
+                p.setPrice(rs.getDouble("Price"));
+                p.setDiscount(rs.getDouble("Discount"));
+                p.setCategoryId(rs.getInt("CategoryId"));
+                // Thêm sản phẩm vào danh sách
+                list.add(p);
+            }
+        }
+        // Đóng kết nối
+        con.close();
+        return list;
+    }
+
 }

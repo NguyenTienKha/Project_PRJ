@@ -41,6 +41,9 @@ public class ProductController extends HttpServlet {
             case "list":
                 list(request, response);
                 break;
+            case "search":
+                search(request, response);
+                break;
         }
     }
 
@@ -51,6 +54,22 @@ public class ProductController extends HttpServlet {
         try {
             List<Product> list = pf.select();
             request.setAttribute("list", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMsg", e.toString());
+        }
+        request.getRequestDispatcher(layout).forward(request, response);
+    }
+
+    protected void search(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String layout = (String) request.getAttribute("layout");
+        ProductFacade pf = new ProductFacade();
+        String name = request.getParameter("search");
+        try {
+            List<Product> list = pf.search(name);
+            request.setAttribute("list", list);
+            request.setAttribute("search", name);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMsg", e.toString());

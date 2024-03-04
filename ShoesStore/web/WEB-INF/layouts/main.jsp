@@ -50,9 +50,9 @@
                 </span>
                 <span class="navbar-right">
                     <div class="d-flex align-items-center justify-content-evenly">                        
-                        <form class="form-search border border-1 rounded-5 py-1 px-4 me-1 col-8 d-flex align-items-center">    
-                            <i onclick="openSearchBar()" class="bi bi-search me-2 p-1 cursor-pointer"></i>
-                            <input onchange="handleSearch()" class="form-input border-0 w-100 search-btn" type="text" placeholder="Search">
+                        <form action="<c:url value="/product/search.do" />" class="form-search border border-1 rounded-5 py-1 px-4 me-1 col-8 d-flex align-items-center">    
+                            <i class="bi bi-search me-2 p-1 cursor-pointer"></i>
+                            <input name="search" class="form-input border-0 w-100 search-btn" type="text" placeholder="Search">
                         </form>
                         <div class="navbar-cart"><i class="bi bi-basket2-fill"></i><sup>1</sup></div>
                     </div>
@@ -88,27 +88,6 @@
         navbar.style.transition = 'all ease-in 0.2s';
         lastScrollTop = scrollTop;
     });
-    function openSearchBar() {
-        let navLeft = document.querySelector('.navbar-left');
-        let navMiddle = document.querySelector('.navbar-middle');
-        let navRight = document.querySelector('.navbar-right');
-        let navCart = document.querySelector('.navbar-cart');
-        let navMove = document.querySelector(".navbar-move");
-        let navAdded = document.querySelector('.navbar-added');
-        navMiddle.style.display = 'none';
-        navCart.style.display = 'none';
-        navLeft.classList.add("col-2");
-        navRight.classList.add("col-8");
-        navAdded.innerHTML = "<span class='cancel-navbar'>Cancel</span>"
-        navAdded.style.display = 'block';
-        navAdded.classList.add("col-2");
-        document.querySelector('.search-btn').style.transition = 'all 0.3s ease';
-        navRight.style.transition = 'all 0.3s ease';
-        navAdded.style.transition = 'all 0.3s ease';
-        navMove.style.transition = 'all 0.3s ease';    
-    }
-    function cancelSearchBar() {
-        
-    }
+    
 </script>
 

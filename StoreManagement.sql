@@ -290,3 +290,14 @@ VALUES
 (40, '38'), (40, '39'), (40, '40'), (40, '41'), (40, '42'), (40, '43');
 
 
+SELECT p.*, ps.Size 
+FROM Product p 
+INNER JOIN Product_Size ps 
+ON p.Id = ps.ProductId
+
+select p.*, c.Name as CategoryName
+from Product p
+inner join Category c
+on p.CategoryId = c.Id
+where p.Name like '%nike%'
+or c.Name = 'Basketball'
