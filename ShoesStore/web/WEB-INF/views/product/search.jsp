@@ -15,8 +15,8 @@
             Sort by
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <li><button class="dropdown-item" type="button">Price : High - Low</button></li>
-            <li><button class="dropdown-item" type="button">Price : Low - High</button></li>
+            <li><a href="<c:url value="/product/search.do?search=${search}&order=asc"/>" class="dropdown-item" type="button">Price : Low - High</a></li>
+            <li><a href="<c:url value="/product/search.do?search=${search}&order=desc"/>" class="dropdown-item" type="button">Price : High - Low</a></li>
         </ul>
     </div>
 </div>
@@ -36,6 +36,14 @@
                     <i class="bi bi-arrow-right"></i><fmt:formatNumber value="${product.price*(1-product.discount)}" type="currency"/><br/>
                 </c:otherwise>
             </c:choose>
+            <div class="sizes">
+                Size:
+                <select name="size">
+                    <c:forEach var="size" items="${product.sizes}">
+                        <option value="${size}">${size}</option>
+                    </c:forEach>
+                </select>
+            </div>
         </div>
     </c:forEach>
 </div>

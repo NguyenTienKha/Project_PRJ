@@ -9,6 +9,8 @@ import db.Product;
 import db.ProductFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -65,15 +67,25 @@ public class ProductController extends HttpServlet {
             throws ServletException, IOException {
         String layout = (String) request.getAttribute("layout");
         ProductFacade pf = new ProductFacade();
+        String order = request.getParameter("order");
         String name = request.getParameter("search");
         try {
             List<Product> list = pf.search(name);
+            if (order != null && !order.isEmpty()) {
+                if (order.equals("asc")) {
+                    Collections.sort(list, Comparator.comparing(Product::getTotal));
+                } else if (order.equals("desc")) {
+                    Collections.sort(list, Comparator.comparing(Product::getTotal).reversed());
+                }
+            }
             request.setAttribute("list", list);
             request.setAttribute("search", name);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("errorMsg", e.toString());
         }
+
+        // Forward the request to the appropriate JSP for rendering
         request.getRequestDispatcher(layout).forward(request, response);
     }
 

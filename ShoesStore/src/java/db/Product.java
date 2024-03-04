@@ -89,5 +89,7 @@ public class Product {
     public void setSizes(List<String> sizes) {
         this.sizes = sizes;
     }
-
+    public double getTotal() {
+        return price*(1-discount);
+    }
 }

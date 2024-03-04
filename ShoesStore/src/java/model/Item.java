@@ -2,6 +2,9 @@ package model;
 
 
 import db.Product;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -40,5 +43,4 @@ public class Item {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    
 }
