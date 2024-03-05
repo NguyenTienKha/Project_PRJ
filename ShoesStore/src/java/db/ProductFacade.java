@@ -60,7 +60,7 @@ public class ProductFacade {
                 + "INNER JOIN Category c ON p.CategoryId = c.Id "
                 + "WHERE p.Name LIKE ? OR c.Name = ? OR p.Gender = ?");
         stm.setString(1, "%" + name + "%");
-        stm.setString(2, "%" + name + "%");
+        stm.setString(2, name);
         stm.setString(3, name);
         ResultSet rs = stm.executeQuery();
         list = new ArrayList<>();

@@ -8,7 +8,6 @@ package controllers;
 import db.Product;
 import db.ProductFacade;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -71,7 +70,7 @@ public class ProductController extends HttpServlet {
         String name = request.getParameter("search");
         try {
             List<Product> list = pf.search(name);
-            if (order != null && !order.isEmpty()) {
+            if (order != null) {
                 if (order.equals("asc")) {
                     Collections.sort(list, Comparator.comparing(Product::getTotal));
                 } else if (order.equals("desc")) {
@@ -84,8 +83,6 @@ public class ProductController extends HttpServlet {
             e.printStackTrace();
             request.setAttribute("errorMsg", e.toString());
         }
-
-        // Forward the request to the appropriate JSP for rendering
         request.getRequestDispatcher(layout).forward(request, response);
     }
 
