@@ -80,7 +80,7 @@
             navbar.style.top = '-100%';
         } else {
             if (scrollTop === 0) {
-                navbar.style.top = '36px';
+                navbar.style.top = '24px';
             } else {
                 navbar.style.top = '0px';
             }

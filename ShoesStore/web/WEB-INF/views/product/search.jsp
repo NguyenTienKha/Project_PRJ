@@ -15,8 +15,8 @@
             Sort by
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <li><a href="<c:url value="/product/search.do?search=${search}&order=asc"/>" class="dropdown-item" type="button">Price : Low - High</a></li>
-            <li><a href="<c:url value="/product/search.do?search=${search}&order=desc"/>" class="dropdown-item" type="button">Price : High - Low</a></li>
+            <li><a class="dropdown-item" type="button">Price : Low - High</a></li>
+            <li><a class="dropdown-item" type="button">Price : High - Low</a></li>
         </ul>
     </div>
 </div>
