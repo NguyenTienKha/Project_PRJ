@@ -124,10 +124,11 @@ public class AccountFacade {
         return false;
     }
 
-    public void create(String email, String fullName, String password, String roleId) throws SQLException {
+    public int create(String email, String fullName, String password, int roleId) throws SQLException {
         if (exists(email)) {
             throw new SQLException("Email already exists in the database");
         }
+        int accountId = -1;
         //Tao connection de ket noi vào DBMS
         Connection con = DBContext.getConnection();
         //Tao doi tuong statement
@@ -136,10 +137,16 @@ public class AccountFacade {
         stm.setString(1, email);
         stm.setString(2, fullName);
         stm.setString(3, password);
-        stm.setString(4, roleId);
+        stm.setInt(4, roleId);
         //Thuc thi lenh INSERT
         int count = stm.executeUpdate();
+        if (count > 0) {
+            ResultSet rs = stm.getGeneratedKeys();
+            if (rs.next()) {
+                accountId = rs.getInt(1);
+            }
+        }
         con.close();
-
+        return accountId;
     }
 }

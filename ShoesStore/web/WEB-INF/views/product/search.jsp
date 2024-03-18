@@ -22,8 +22,9 @@
 </div>
 <div class="row col-11 ms-auto me-auto">
     <c:forEach var="product" items="${list}">
-        <div class="col-sm-3 col-6  p-3 d-flex flex-column justify-content-between ">
+        <form class="col-sm-3 col-6  p-3 d-flex flex-column justify-content-between " action="<c:url value="/cart/add.do?id=${product.id}&size=${size}" />" >
             <div class="details">
+                <input type="hidden" name="id" value="${product.id}"/>
                 <img src="<c:url value="/products/${product.id}.png" />" width="100%" />
                 <div class="fw-bold text-wrap name" style="color:brown">${product.name}</div><br/>
                 <div style="color:grey">${product.gender} <span>'s Shoes</span></div>
@@ -48,7 +49,8 @@
                 </c:choose>
 
             </div>
-            <a class="btn-add-card btn btn-dark btn-sm mt-2 rounded-4 text-nowrap p-2" href="<c:url value="/cart/add?id=${product.id}"/>">Add to Cart <i class="bi bi-bag-plus"></i></a>
-        </div>
-    </c:forEach>
+            <button class="btn-add-card btn btn-dark btn-sm mt-2 rounded-4 text-nowrap p-2">Add to Cart <i class="bi bi-bag-plus"></i></button>
+
+        </form>
+</c:forEach>
 </div>

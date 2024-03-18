@@ -166,6 +166,7 @@ public class AccountController extends HttpServlet {
             throws ServletException, IOException {
         String layout = (String) request.getAttribute("layout");
         AccountFacade af = new AccountFacade();
+        CustomerFacade cf = new CustomerFacade();
         try {
             String email = request.getParameter("email");
             if (af.exists(email)) {
@@ -175,10 +176,14 @@ public class AccountController extends HttpServlet {
                 return; // Ngừng thực hiện phần còn lại của phương thức nếu email đã tồn tại
             }
             String fullName = request.getParameter("fullName");
-            String roleId = "US";
+            int roleId = 2;
             String password = request.getParameter("password");
             String hashedPassword = Hasher.hash(password);
-            af.create(email, fullName, hashedPassword, roleId);
+            int id = af.create(email, fullName, hashedPassword, roleId);
+            Account account = af.select(id);
+            Customer customer = cf.select(account.getId());
+            Customer cus = new Customer(customer.getId(), 0, customer.getAccountId());
+            cf.update(cus);
             request.getRequestDispatcher("/account/login.do").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();//in chi tiet ngoai le
@@ -186,7 +191,6 @@ public class AccountController extends HttpServlet {
             //chuyen ve trang create neu xay re exception
             request.setAttribute("action", "create");
         }
-        request.getRequestDispatcher(layout).forward(request, response);
     }
 
     protected void add(HttpServletRequest request, HttpServletResponse response)
@@ -210,7 +214,7 @@ public class AccountController extends HttpServlet {
                 double currentMoney = customer.getMoney();
                 double money = Double.parseDouble(request.getParameter("money"));
                 double afterAdd = currentMoney + money;
-                Customer newCustomer = new Customer(customer.getId(),afterAdd,customer.getAccountId());
+                Customer newCustomer = new Customer(customer.getId(), afterAdd, customer.getAccountId());
                 cf.update(newCustomer);
                 session.setAttribute("customer", newCustomer);
                 request.getRequestDispatcher("/home/index.do").forward(request, response);
